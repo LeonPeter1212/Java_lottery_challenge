@@ -34,23 +34,25 @@ public class LotteryDistributor {
             distribution.put(winner, new ArrayList<>());
         }
 
-        // Distribute prizes among winners
+        // Distribute prizes among winners and calculate total values
+        int totalPrizes = 0;
         for (int prizeIndex = prizes.length - 1; prizeIndex >= 0; prizeIndex--) {
             String minTotalWinner = getWinnerWithMinTotal(distribution);
             distribution.get(minTotalWinner).add(prizes[prizeIndex]);
+            totalPrizes += prizes[prizeIndex];
         }
 
         // Display the distribution of prizes for each winner
         for (String winner : winnersArray) {
-            System.out.print(winner + ":");
+            StringBuilder output = new StringBuilder(winner + ":");
             List<Integer> prizesForWinner = distribution.get(winner);
             for (int i = 0; i < prizesForWinner.size(); i++) {
                 if (i > 0) {
-                    System.out.print(",");
+                    output.append(",");
                 }
-                System.out.print(prizesForWinner.get(i));
+                output.append(prizesForWinner.get(i));
             }
-            System.out.println();
+            System.out.println(output);
         }
 
         scanner.close();
